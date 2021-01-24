@@ -412,6 +412,7 @@ try {
 - Errorオブジェクトには、スタックトレースが記録され、デバッグに役立てられる
 
 # 非同期処理:コールバック/Promise/Async Function
+https://jsprimer.net/basic/async/
 
 ## 同期処理
 
@@ -577,3 +578,77 @@ Promise.all([promise1, promise2, promise3]).then(function(values) {
 - Promise.raceメソッドを使うことでPromiseを使った非同期処理のタイムアウトが実装できます。ここでのタイムアウトとは、一定時間経過しても処理が終わっていないならエラーとして扱う処理のことです。
 
 - より詳しいPromiseの使い方は「[JavaScript Promiseの本](https://azu.github.io/promises-book/)」を参照
+
+## [ES2017] Async Function
+- Async Functionは通常の関数とは異なり、必ずPromiseインスタンスを返す関数を定義する構文です。
+```
+async function doAsync() {
+    return "値";
+}
+// doAsync関数はPromiseを返す
+doAsync().then(value => {
+    console.log(value); // => "値"
+});
+```
+
+- このAsync Functionは次のように書いた場合と同じ意味になります。
+```
+// 通常の関数でPromiseインスタンスを返している
+function doAsync() {
+    return Promise.resolve("値");
+}
+doAsync().then(value => {
+    console.log(value); // => "値"
+});
+```
+
+## Async Functionの定義
+- Async Functionは、次の点以外は通常の関数と同じ性質を持ちます。
+
+  - Async Functionは必ずPromiseインスタンスを返す
+  - Async Function内ではawait式が利用できる
+
+## Async FunctionはPromiseを返す
+- 具体的にはAsync Functionが返す値は次の3つのケースが考えられます。
+
+1. Async Functionが値をreturnした場合、その返り値を持つFulfilledなPromiseを返す
+2. Async FunctionがPromiseをreturnした場合、その返り値のPromiseをそのまま返す
+3. Async Function内で例外が発生した場合は、そのエラーを持つRejectedなPromiseを返す
+
+## await式
+- Async Functionの関数内ではawait式を利用できます。
+- await式は右辺のPromiseインスタンスがFulfilledまたはRejectedになるまでその場で非同期処理の完了を待ちます。
+- そしてPromiseインスタンスの状態が変わると、次の行の処理を再開します。
+
+```
+async function asyncMain() {
+    // PromiseがFulfilledまたはRejectedとなるまで待つ
+    await Promiseインスタンス;
+    // Promiseインスタンスの状態が変わったら処理を再開する
+}
+```
+
+- await式を使うことで、try...catch構文のように非同期処理を同期処理と同じ構文を使って扱えます。
+
+## Promiseチェーンをawait式で表現する
+
+## Async Functionと組み合わせ
+
+### Async Functionと反復処理
+- Async Functionでは、非同期処理であってもforループのような既存の構文と組み合わせて利用することが簡単です。
+
+## Promise APIとAsync Functionを組み合わせる
+- await式が評価するのはPromiseインスタンスであるため、await式も例えばPromise.allメソッドと組み合わせて利用できます。
+
+## await式はAsync Functionの中でのみ利用可能
+- Async Functionとコールバック関数を組み合わせた場合には予期せぬ挙動をすることがあるので気をつける必要があります。
+
+## まとめ
+- 非同期処理はその処理が終わるのを待つ前に次の処理を評価すること
+- 非同期処理であってもメインスレッドで実行されることがある
+- エラーファーストコールバックは、非同期処理での例外を扱うルールの1つ
+- Promiseは、ES2015で導入された非同期処理を扱うビルトインオブジェクト
+- Async Functionは、ES2017で導入された非同期処理を扱う構文
+- Async FunctionはPromiseの上に作られた構文であるため、Promiseと組み合わせて利用する
+
+PromiseやAsync Functionの応用パターンについては「[JavaScript Promiseの本](http://azu.github.io/promises-book/)」も参照してください。
