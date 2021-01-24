@@ -653,7 +653,7 @@ async function asyncMain() {
 
 PromiseやAsync Functionの応用パターンについては「[JavaScript Promiseの本](http://azu.github.io/promises-book/)」も参照してください。
 
- # Map/Set
+# Map/Set
  https://jsprimer.net/basic/map-and-set/
 
 ## Map
@@ -715,3 +715,45 @@ console.log(set.size); // => 2
 - WeakMapはキーを弱い参照で持つMapと同様のビルトインオブジェクト
 - Setは重複する値がないことを保証した順序を持たないコレクションを扱うビルトインオブジェクト
 - WeakSetは値を弱い参照で持つSetと同様のビルトインオブジェクト
+
+# JSON
+https://jsprimer.net/basic/json/
+
+- JSONの細かい仕様は[json.orgの日本語ドキュメント](https://www.json.org/json-ja.html)にわかりやすくまとまっているので、参考にするとよいでしょう。
+
+## JSONオブジェクト
+### JSON文字列をオブジェクトに変換する
+```
+// JSONはダブルクォートのみを許容するため、シングルクォートでJSON文字列を記述
+const json = '{ "id": 1, "name": "js-primer" }';
+const obj = JSON.parse(json);
+console.log(obj.id); // => 1
+console.log(obj.name); // => "js-primer"
+```
+
+- 与えられた文字列がJSON形式でパースできない場合は例外が投げられます。 
+
+### オブジェクトをJSON文字列に変換する
+```
+const obj = { id: 1, name: "js-primer", bio: null };
+console.log(JSON.stringify(obj)); // => '{"id":1,"name":"js-primer","bio":null}'
+```
+
+- JSON.stringifyメソッドにはオプショナルな引数が2つあります。
+  - 第二引数：replacer
+    - 引数として関数か配列を渡すことができ、文字列に変換される際の挙動をコントロールできる。
+  - 第三引数：space
+    - 変換後のJSON形式の文字列を読みやすくフォーマットする際のインデントを設定できる。
+
+## JSONにシリアライズできないオブジェクト
+- いろいろあって、nullに変換されるなどオブジェクトごとに異なる挙動となる。
+
+## toJSONメソッドを使ったシリアライズ
+- オブジェクトがtoJSONメソッドを持っている場合、JSON.stringifyメソッドは既定の文字列変換ではなくtoJSONメソッドの返り値を使います。
+- toJSONメソッドは自作のクラスを特殊な形式でシリアライズする目的などに使われます。
+
+## まとめ
+- JSONはJavaScriptのオブジェクトリテラルをベースに作られた軽量なデータフォーマット
+- JSONオブジェクトを使ったシリアライズとデシリアライズ
+- JSON形式にシリアライズできないオブジェクトもある
+- JSON.stringifyはシリアライズ対象のtoJSONメソッドを利用する
