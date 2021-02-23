@@ -814,3 +814,10 @@ const date2 = new Date(ms);
 # Math
 
 ## Mathオブジェクト
+- Mathオブジェクトはインスタンスを作らず、 すべての定数や関数はMathオブジェクトの静的なプロパティやメソッドとして提供されています。
+
+```
+const rad90 = Math.PI * 90 / 180;
+const sin90 = Math.sin(rad90);
+console.log(sin90); // => 1
+```
