@@ -821,3 +821,6 @@ const rad90 = Math.PI * 90 / 180;
 const sin90 = Math.sin(rad90);
 console.log(sin90); // => 1
 ```
+
+## 乱数を生成する
+- Math.randomメソッドは、0以上1未満の範囲内で、疑似ランダムな浮動小数点数を返します。
