@@ -875,3 +875,16 @@ import { foo, bar } from "./my-module.js";
 console.log(foo); // => "foo"
 console.log(bar); // => "bar"
 ```
+
+#### 名前つきエクスポート／インポートのエイリアス
+```
+const internalFoo = "foo";
+// internalFoo変数をfooとして名前つきエクスポートする
+export { internalFoo as foo };
+```
+
+```
+// fooとして名前つきエクスポートされた変数をmyFooとしてインポートする
+import { foo as myFoo } from "./named-export-alias.js";
+console.log(myFoo); // => "foo"
+```
