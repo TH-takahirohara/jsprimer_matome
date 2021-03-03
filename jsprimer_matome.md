@@ -846,3 +846,32 @@ console.log(sin90); // => 1
   - 再利用性: 便利な変数や関数を複数の場所にコピーアンドペーストせず、モジュールとして再利用できます
 
 - 1つのJavaScriptモジュールは1つのJavaScriptファイルに対応します。モジュールは変数や関数などを外部にエクスポートできます。また、別のモジュールで宣言された変数や関数などをインポートできます。
+
+## ECMAScriptモジュールの構文
+- ECMAScriptモジュールは、export文によって変数や関数などをエクスポートできます。 また、import文を使って別のモジュールからエクスポートされたものをインポートできます。 インポートとエクスポートはそれぞれに 名前つき と デフォルト という2種類の方法があります。
+
+### 名前つきエクスポート／インポート
+- 名前つきエクスポート
+```
+const foo = "foo";
+// 宣言済みのオブジェクトを名前つきエクスポートする
+export { foo };
+
+// 宣言と同時に名前つきエクスポートする
+export function bar() { };
+```
+
+- 名前つきインポート
+my-module.js
+```
+export const foo = "foo";
+export function bar() { }
+```
+
+named-import.js
+```
+// 名前つきエクスポートされたfooとbarをインポートする
+import { foo, bar } from "./my-module.js";
+console.log(foo); // => "foo"
+console.log(bar); // => "bar"
+```
