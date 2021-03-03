@@ -888,3 +888,40 @@ export { internalFoo as foo };
 import { foo as myFoo } from "./named-export-alias.js";
 console.log(myFoo); // => "foo"
 ```
+
+### デフォルトエクスポート／インポート
+- デフォルトエクスポートは、モジュールごとに1つしかエクスポートできない特殊なエクスポートです。 
+- ただし、変数宣言は宣言とデフォルトエクスポートを同時に行うことはできません。 
+
+```
+const foo = "foo";
+// foo変数の値をデフォルトエクスポートする
+export default foo;
+```
+
+- デフォルトインポートは、指定したモジュールのデフォルトエクスポートに名前をつけてインポートします。
+
+my-module.js
+```
+export default {
+    baz: "baz"
+};
+```
+
+default-import.js
+```
+// デフォルトエクスポートをmyModuleとしてインポートする
+import myModule from "./my-module.js";
+console.log(myModule); // => { baz: "baz" }
+```
+
+- 実はデフォルトエクスポートは、defaultという固有の名前による名前つきエクスポートと同じものです。
+
+- また、名前つきインポートとデフォルトインポートの構文は同時に記述できます。 次のように2つの構文をカンマでつなげます。
+```
+// myModuleとしてデフォルトインポートし、
+// fooを名前つきインポートする
+import myModule, { foo } from "./my-module.js";
+console.log(foo); // => "foo"
+console.log(myModule); // => { baz: "baz" }
+```
