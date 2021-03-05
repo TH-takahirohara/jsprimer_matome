@@ -925,3 +925,40 @@ import myModule, { foo } from "./my-module.js";
 console.log(foo); // => "foo"
 console.log(myModule); // => { baz: "baz" }
 ```
+
+### その他の構文
+#### 再エクスポート
+- 再エクスポートとは、別のモジュールからインポートしたものを、改めて自分自身からエクスポートし直すことです。 複数のモジュールからエクスポートされたものをまとめたモジュールを作るときなどに使われます。
+
+```
+// ./my-module.jsの名前つきエクスポートを選んで再エクスポートする
+export { foo, bar } from "./my-module.js";
+...
+```
+
+#### すべてをインポート
+- import * as構文は、すべての名前つきエクスポートをまとめてインポートします。 この方法では、モジュールごとの 名前空間 となるオブジェクトを宣言します。 
+
+namespace-import.js
+```
+// すべての名前つきエクスポートをmyModuleオブジェクトとしてまとめてインポートする
+import * as myModule from "./my-module.js";
+// fooとして名前つきエクスポートされた値にアクセスする
+console.log(myModule.foo); // => "foo"
+// defaultとしてデフォルトエクスポートされた値にアクセスする
+console.log(myModule.default); // => { baz: "baz" }
+```
+
+#### 副作用のためのインポート
+- モジュールの中には、グローバルのコードを実行するだけで何もエクスポートしないものがあります。 
+
+side-effects.js
+```
+// グローバル変数を操作する(副作用)
+window.foo = "foo";
+```
+
+```
+// ./side-effects.jsのグローバルコードが実行される
+import "./side-effects.js";
+```
