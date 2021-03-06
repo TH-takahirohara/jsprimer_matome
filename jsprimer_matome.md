@@ -962,3 +962,15 @@ window.foo = "foo";
 // ./side-effects.jsのグローバルコードが実行される
 import "./side-effects.js";
 ```
+
+## ECMAScriptモジュールを実行する
+- 作成したECMAScriptモジュールを実行するためには、起点となるJavaScriptファイルをECMAScriptモジュールとしてウェブブラウザに読み込ませる必要があります。 ウェブブラウザはscript要素によってJavaScriptファイルを読み込み、実行します。 次のようにscript要素にtype="module"属性を付与すると、ウェブブラウザはJavaScriptファイルをECMAScriptモジュールとして読み込みます。
+
+```
+<!-- my-module.jsをECMAScriptモジュールとして読み込む -->
+<script type="module" src="./my-module.js"></script>
+<!-- インラインでも同じ -->
+<script type="module">
+import { foo } from "./my-module.js";
+</script>
+```
