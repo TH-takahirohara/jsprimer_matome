@@ -974,3 +974,9 @@ import "./side-effects.js";
 import { foo } from "./my-module.js";
 </script>
 ```
+
+# ECMAScript
+- ここまでJavaScriptの基本文法について見てきましたが、その文法を定めるECMAScriptという仕様自体がどのように変化していくのかを見ていきましょう。
+- ECMAScriptはEcma Internationalという団体によって標準化されている仕様です。
+
+## ECMAScriptのバージョンの歴史
