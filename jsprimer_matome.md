@@ -980,3 +980,7 @@ import { foo } from "./my-module.js";
 - ECMAScriptはEcma Internationalという団体によって標準化されている仕様です。
 
 ## ECMAScriptのバージョンの歴史
+
+## Living StandardとなるECMAScript
+- 更新ごとにバージョン番号をつけずに、常に最新版を公開する仕様のことをLiving Standardと呼びます。
+- ECMAScriptはLiving Standardですが、これに加えてECMAScript 2017のようにバージョン番号をつけたものも公開されています。
